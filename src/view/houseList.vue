@@ -60,7 +60,7 @@ export default {
       ins: -1,
       open:false,
       show:false,
-      hotelName: "",
+      hotelName: sessionStorage.getItem('hotelName'),
       deviceId:''
     };
   },
@@ -98,26 +98,26 @@ export default {
     },
     //获取酒店列表
     getHouseList() {
-      this.$api
-        .getHotel({
-          customerId: this.customerId
-        })
-        .then(res => {
-          if (res.success) {
-            this.list2 = res.dataObject;
-            this.hotelName = res.dataObject[0].name;
+      // this.$api
+      //   .getHotel({
+      //     customerId: this.customerId
+      //   })
+      //   .then(res => {
+      //     if (res.success) {
+      //       this.list2 = res.dataObject;
+      //       this.hotelName = res.dataObject[0].name;
             this.$api
               .getHouseList({
-                customerId: sessionStorage.getItem('customerId'),
-                hotelId: res.dataObject[0].id
+                // customerId: sessionStorage.getItem('customerId'),
+                hotelId: sessionStorage.getItem('manager_hotelId')
               })
               .then(res => {
                 if (res.success) {
                   this.list = res.dataObject;
                 }
               });
-          }
-        });
+        //   }
+        // });
     },
     //获取门锁设备
     getHouseLock(serverId){
